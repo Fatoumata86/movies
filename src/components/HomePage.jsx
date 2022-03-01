@@ -6,8 +6,6 @@ import { movies$ } from "../movies";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
-	// const moviesList = movies$.then((movies) => console.log(movies));
-
 	const [movies, setMovies] = useState([]);
 
 	useEffect(() => {
@@ -15,9 +13,14 @@ export default function HomePage() {
 			setMovies(data);
 		});
 		// console.log(movies);
-	}, [movies]);
+	}, []);
 	// console.log(`movies`, movies);
-	// const { id, title, category, likes, dislikes } = movies;
+
+	const deleteMovie = (id) => {
+		console.log(id);
+		const newMoviesList = movies.filter((movie) => movie.id !== id);
+		setMovies(newMoviesList);
+	};
 
 	return (
 		<>
@@ -25,24 +28,32 @@ export default function HomePage() {
 			<div className="d-flex justify-content-evenly flex-wrap">
 				{/* {console.log(movies)} */}
 				{movies?.map((movie) => (
-					<div className="card mt-5 mx-2" style={{ width: "18rem" }}>
+					<div
+						className="card mt-5 mx-2"
+						style={{ width: "18rem" }}
+						key={movie.id}
+					>
 						<div className="container card-body mt-4">
-							<h4
-								className="card-title text-center"
-								key={movie.id}
-							>
+							<h4 className="card-title text-center ">
 								<b>{movie.title}</b>
 							</h4>
-							<p className="card-title">{movie.category}</p>
-							<button className="btn-success">
-								<ion-icon name="thumbs-up"></ion-icon>
-								{movie.likes}
-							</button>
-							<button className="btn-danger">
-								<ion-icon name="thumbs-down"></ion-icon>
-								{movie.dislikes}
-							</button>
-							<button className="btn btn-danger">Delete</button>
+							<p className="card-text">{movie.category}</p>
+							<div className="d-flex justify-content-evenly flex-wrap">
+								<button className="btn-success">
+									<ion-icon name="thumbs-up"></ion-icon>
+									{movie.likes}
+								</button>
+								<button className="btn-danger">
+									<ion-icon name="thumbs-down"></ion-icon>
+									{movie.dislikes}
+								</button>
+								<button
+									className="btn btn-danger "
+									onClick={() => deleteMovie(movie.id)}
+								>
+									Delete
+								</button>
+							</div>
 						</div>
 					</div>
 				))}
