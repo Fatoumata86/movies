@@ -30,7 +30,6 @@ export default function HomePage() {
 	};
 
 	console.log(`likes`, likes);
-
 	console.log(`dislikes`, dislikes);
 	return (
 		<>
@@ -76,12 +75,12 @@ export default function HomePage() {
 					</div>
 				</div>
 			</nav>
-			<h1 className="text-center">Movies</h1>
+			<h1 className=" text-center mt-3 fs-1">Movies</h1>
 			<div className="d-flex justify-content-evenly flex-wrap">
 				{/* {console.log(movies)} */}
 				{movies?.map((movie) => (
 					<div
-						className="card mt-5 mx-2"
+						className="card mt-5 mx-2 bg-color"
 						style={{ width: "18rem" }}
 						key={movie.id}
 					>
@@ -90,26 +89,28 @@ export default function HomePage() {
 							src={movie.image}
 							alt={movie.title}
 						/>
-						<div className="container card-body mt-4">
+						<div className="container justify-content-around card-body mt-2">
 							<h4 className="card-title text-center ">
 								<b>{movie.title}</b>
 							</h4>
-							<button
-								onClick={() => filterMovies(movie.category)}
-								className="btn-info"
-							>
-								{movie.category}
-							</button>
+							<div className="d-flex justify-content-center m-3">
+								<button
+									onClick={() => filterMovies(movie.category)}
+									className="btn btn-info "
+								>
+									{movie.category}
+								</button>
+							</div>
 							<div className="d-flex justify-content-evenly flex-wrap">
 								<button
-									className="btn-success"
+									className=" btn btn-success"
 									onClick={() => setLikes(movie.likes + 1)}
 								>
 									<ion-icon name="thumbs-up"></ion-icon>
 									{movie.likes}
 								</button>
 								<button
-									className="btn-danger"
+									className="btn btn-danger"
 									onClick={() =>
 										setDislikes(movie.dislikes - 1)
 									}
