@@ -1,0 +1,86 @@
+const movies = [
+	{
+		id: "1",
+		image: require("../assets/images/Oceans8.jpg"),
+		title: "Oceans 8",
+		category: "Comedy",
+		likes: 4,
+		dislikes: 1,
+	},
+	{
+		id: "2",
+		image: require("../assets/images/MidnightSun.jpg"),
+		title: "Midnight Sun",
+		category: "Comedy",
+		likes: 2,
+		dislikes: 0,
+	},
+	{
+		id: "3",
+		image: require("../assets/images/LesIndestructibles2.jpg"),
+		title: "Les indestructibles 2",
+		category: "Animation",
+		likes: 3,
+		dislikes: 1,
+	},
+	{
+		id: "4",
+		image: require("../assets/images/SansUnBruit.jpg"),
+		title: "Sans un bruit",
+		category: "Thriller",
+		likes: 6,
+		dislikes: 6,
+	},
+	{
+		id: "5",
+		image: require("../assets/images/CreedII.jpg"),
+		title: "Creed II",
+		category: "Drame",
+		likes: 16,
+		dislikes: 2,
+	},
+	{
+		id: "6",
+		image: require("../assets/images/PulpFiction.jpg"),
+		title: "Pulp Fiction",
+		category: "Thriller",
+		likes: 11,
+		dislikes: 3,
+	},
+	{
+		id: "7",
+		image: require("../assets/images/PulpFiction.jpg"),
+		title: "Pulp Fiction",
+		category: "Thriller",
+		likes: 12333,
+		dislikes: 32,
+	},
+	{
+		id: "8",
+		image: require("../assets/images/Seven.jpg"),
+		title: "Seven",
+		category: "Thriller",
+		likes: 2,
+		dislikes: 1,
+	},
+	{
+		id: "9",
+		image: require("../assets/images/Inception.jpg"),
+		title: "Inception",
+		category: "Thriller",
+		likes: 2,
+		dislikes: 1,
+	},
+	{
+		id: "10",
+		image: require("../assets/images/GoneGirl.jpg"),
+		title: "Gone Girl",
+		category: "Thriller",
+		likes: 22,
+		dislikes: 12,
+	},
+];
+
+export const movies$ = new Promise((resolve, reject) =>
+	setTimeout(resolve, 100, movies)
+);

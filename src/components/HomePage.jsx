@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./HomePage.css";
-import { movies$ } from "../movies";
+import { movies$ } from "./movies";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
 	const [movies, setMovies] = useState([]);
-
+	const [likes, setLikes] = useState([]);
+	const [dislikes, setDislikes] = useState([]);
+	console.log(`likes`, likes);
+	console.log(`dislikes`, dislikes);
 	useEffect(() => {
 		movies$.then((data) => {
 			setMovies(data);
@@ -33,17 +36,29 @@ export default function HomePage() {
 						style={{ width: "18rem" }}
 						key={movie.id}
 					>
+						<img
+							className="rounded mx-auto my-2"
+							src={movie.image}
+						/>
 						<div className="container card-body mt-4">
 							<h4 className="card-title text-center ">
 								<b>{movie.title}</b>
 							</h4>
 							<p className="card-text">{movie.category}</p>
 							<div className="d-flex justify-content-evenly flex-wrap">
-								<button className="btn-success">
+								<button
+									className="btn-success"
+									onClick={() => setLikes(movie.likes + 1)}
+								>
 									<ion-icon name="thumbs-up"></ion-icon>
 									{movie.likes}
 								</button>
-								<button className="btn-danger">
+								<button
+									className="btn-danger"
+									onClick={() =>
+										setDislikes(movie.dislikes - 1)
+									}
+								>
 									<ion-icon name="thumbs-down"></ion-icon>
 									{movie.dislikes}
 								</button>
