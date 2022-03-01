@@ -1,5 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=Montserrat:wght@300;400;900&display=swap");
 
+.navColor {
+	background-color: #27496d;
+	font-family: "Lato", sans-serif;
+	font-size: 24px;
+}
+
+.nav-link {
+	color: black;
+	font-family: "Montserrat-Black", sans-serif;
+}
+
+.nav-link:hover {
+	background-color: #00a8cc;
+}
+
 .card {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	transition: 0.3s;

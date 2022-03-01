@@ -9,8 +9,7 @@ export default function HomePage() {
 	const [movies, setMovies] = useState([]);
 	const [likes, setLikes] = useState([]);
 	const [dislikes, setDislikes] = useState([]);
-	console.log(`likes`, likes);
-	console.log(`dislikes`, dislikes);
+
 	useEffect(() => {
 		movies$.then((data) => {
 			setMovies(data);
@@ -20,13 +19,63 @@ export default function HomePage() {
 	// console.log(`movies`, movies);
 
 	const deleteMovie = (id) => {
-		console.log(id);
 		const newMoviesList = movies.filter((movie) => movie.id !== id);
 		setMovies(newMoviesList);
 	};
+	const filterMovies = (category) => {
+		const MoviesByCategory = movies.filter(
+			(movie) => movie.category === category
+		);
+		setMovies(MoviesByCategory);
+	};
 
+	console.log(`likes`, likes);
+
+	console.log(`dislikes`, dislikes);
 	return (
 		<>
+			<nav className="navbar navbar-light navColor">
+				<div className="container-fluid">
+					<button
+						className="navbar-toggler"
+						type="button"
+						data-bs-toggle="offcanvas"
+						data-bs-target="#offcanvasNavbar"
+						aria-controls="offcanvasNavbar"
+					>
+						<span className="navbar-toggler-icon"></span>
+					</button>
+					<div
+						className="offcanvas offcanvas-start navColor"
+						tabIndex="-1"
+						id="offcanvasNavbar"
+						aria-labelledby="offcanvasNavbarLabel"
+					>
+						<div className="offcanvas-header">
+							<button
+								type="button"
+								className="btn-close text-reset"
+								data-bs-dismiss="offcanvas"
+								aria-label="Close"
+							></button>
+						</div>
+						<div className="offcanvas-body">
+							<ul className="navbar-nav justify-content-start flex-grow-1 pe-3">
+								<li className="nav-item">
+									<Link className="nav-link" to="/homepage">
+										Home
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link className="nav-link" to="/videos/all">
+										Category
+									</Link>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</nav>
 			<h1 className="text-center">Movies</h1>
 			<div className="d-flex justify-content-evenly flex-wrap">
 				{/* {console.log(movies)} */}
@@ -39,12 +88,18 @@ export default function HomePage() {
 						<img
 							className="rounded mx-auto my-2"
 							src={movie.image}
+							alt={movie.title}
 						/>
 						<div className="container card-body mt-4">
 							<h4 className="card-title text-center ">
 								<b>{movie.title}</b>
 							</h4>
-							<p className="card-text">{movie.category}</p>
+							<button
+								onClick={() => filterMovies(movie.category)}
+								className="btn-info"
+							>
+								{movie.category}
+							</button>
 							<div className="d-flex justify-content-evenly flex-wrap">
 								<button
 									className="btn-success"
