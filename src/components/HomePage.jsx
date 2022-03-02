@@ -4,19 +4,37 @@ import "bootstrap/dist/js/bootstrap.js";
 import "./HomePage.css";
 import { movies$ } from "./movies";
 import { Link } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 export default function HomePage() {
 	const [movies, setMovies] = useState([]);
 	const [likes, setLikes] = useState([]);
 	const [dislikes, setDislikes] = useState([]);
+	const [offset, setOffset] = useState(0);
+	const [perPage] = useState(4);
+	const [pageCount, setPageCount] = useState(0);
 
 	useEffect(() => {
 		movies$.then((data) => {
-			setMovies(data);
+			const endOffset = offset + perPage;
+			console.log(`Loading data from ${offset} to ${endOffset}`);
+			setMovies(data.slice(offset, endOffset));
+			setPageCount(Math.ceil(data.length / perPage));
+			// setMovies(data);
 		});
+
 		// console.log(movies);
-	}, []);
+	}, [offset, perPage]);
 	// console.log(`movies`, movies);
+
+	const handlePageClick = (event) => {
+		console.log(`event`, event);
+		const newOffset = event.selected * perPage;
+		console.log(
+			`User requested page number ${event.selected}, which is offset ${newOffset}`
+		);
+		setOffset(newOffset);
+	};
 
 	const deleteMovie = (id) => {
 		const newMoviesList = movies.filter((movie) => movie.id !== id);
@@ -129,7 +147,29 @@ export default function HomePage() {
 					</div>
 				))}
 			</div>
-			<nav aria-label="Page navigation example">
+			<div className=" d-flex justify-content-center mt-5">
+				<ReactPaginate
+					nextLabel="next >"
+					onPageChange={handlePageClick}
+					pageRangeDisplayed={3}
+					marginPagesDisplayed={2}
+					pageCount={pageCount}
+					previousLabel="< previous"
+					pageClassName="page-item"
+					pageLinkClassName="page-link"
+					previousClassName="page-item"
+					previousLinkClassName="page-link"
+					nextClassName="page-item"
+					nextLinkClassName="page-link"
+					breakLabel="..."
+					breakClassName="page-item"
+					breakLinkClassName="page-link"
+					containerClassName="pagination"
+					activeClassName="active"
+					renderOnZeroPageCount={null}
+				/>
+			</div>
+			{/* <nav aria-label="Page navigation example">
 				<ul className="pagination justify-content-center">
 					<li className="page-item">
 						<Link className="page-link" key="" to="/">
@@ -143,7 +183,7 @@ export default function HomePage() {
 						</Link>
 					</li>
 				</ul>
-			</nav>
+			</nav> */}
 		</>
 	);
 }
